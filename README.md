@@ -10,7 +10,7 @@ Transactional component handles sale/purchase of desired stocks
 | `/api/stocks/:ticker`                            | Get                  | Display Company API Data            |
 | `/api/accounts/:account_number`                  | Get                  | Display Account API Data            |
 | `/accounts/:account_number`                      | Update               | Purchase/Sell stock                 |
-| `/stocks/:ticker/dev`                            | Create/Delete        | Developer access to add new company |
+| `/stocks/:ticker/dev`                            | Create/Update Delete | Admin changes to listed companies   |
 | `/accounts/:account_number/dev`                  | Create/Update/Delete | Admin changes to user account       |
 
 
