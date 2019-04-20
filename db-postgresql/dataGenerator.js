@@ -23,12 +23,11 @@ const createCompanies = ( numOfChar ) => {
 
 const tickers = createCompanies(5);
 
-
 const createMockData = async () => {
   for (let i = 0; i < 10000000; i++) {
     if (i === 0) {
-      file.write('id, ask_price, ask_size, bid_price, bid_size, las_extended_hours_trade_price, last_trade_price, symbol, createdAt, updatedAt \n');
-    } else if (!file.write(`${tickers[i]}, ${faker.finance.amount()}, ${faker.random.number()}, ${faker.finance.amount()}, ${faker.random.number()}, ${faker.finance.amount()}, ${faker.finance.amount()}, ${faker.random.alphaNumeric(5)}, 2019-03-29T17:37:11.000Z, 2019-03-29T17:37:11.000Z \n`)) {
+      file.write('ask_price, ask_size, bid_price, bid_size, las_extended_hours_trade_price, last_trade_price, symbol, createdAt, updatedAt \n');
+    } else if (!file.write(`${faker.finance.amount()}, ${faker.random.number()}, ${faker.finance.amount()}, ${faker.random.number()}, ${faker.finance.amount()}, ${faker.finance.amount()}, ${tickers[i]}, 2019-03-29T17:37:11.000Z, 2019-03-29T17:37:11.000Z \n`)) {
         await new Promise(resolve => file.once('drain', resolve));
     }
   }
