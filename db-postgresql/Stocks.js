@@ -17,6 +17,10 @@ Stock.init({
     type: Sequelize.DECIMAL(12, 6),
     allowNull: false,
   },
+  bid_size: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+  },
   last_extended_hours_trade_price: {
     type: Sequelize.DECIMAL(12, 6),
     allowNull: false,
@@ -26,7 +30,7 @@ Stock.init({
     allowNull: false,
   },
   symbol: {
-    type: Sequelize.STRING(5),
+    type: Sequelize.STRING(),
     primaryKey: true,
     unique: true,
   },
@@ -36,7 +40,8 @@ Stock.init({
   },
 }, {
   sequelize: db,
-  modelName: 'Stock',
+  modelName: 'stock',
+  timestamps: false,
 });
 
 Stock.sync({ force: true });

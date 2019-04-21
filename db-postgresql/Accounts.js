@@ -16,7 +16,7 @@ Account.init({
   watchlist: Sequelize.STRING,
 }, {
   sequelize: db,
-  modelName: 'Account',
+  modelName: 'account',
 });
 
 Account.sync({ force: true });
