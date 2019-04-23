@@ -44,6 +44,5 @@ Stock.init({
   timestamps: false,
 });
 
-Stock.sync({ force: true });
 
 module.exports = Stock;

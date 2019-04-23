@@ -19,6 +19,4 @@ Account.init({
   modelName: 'account',
 });
 
-Account.sync({ force: true });
-
 module.exports = Account;

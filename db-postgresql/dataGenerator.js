@@ -27,7 +27,7 @@ const createMockDataCSV = async () => {
   for (let i = 0; i < 10000001; i++) {
     if (i === 0) {
       file.write('ask_price, ask_size, bid_price, bid_size, last_extended_hours_trade_price, last_trade_price, symbol, quantity\n');
-    } else if (!file.write(`${faker.finance.amount()}, ${faker.random.number()}, ${faker.finance.amount()}, ${faker.random.number()}, ${faker.finance.amount()}, ${faker.finance.amount()}, ${tickers[i]}, ${faker.finance.amount()}\n`)) {
+    } else if (!file.write(`${faker.finance.amount()},${faker.random.number()},${faker.finance.amount()},${faker.random.number()},${faker.finance.amount()},${faker.finance.amount()},${tickers[i]}, ${faker.finance.amount()}\n`)) {
         await new Promise(resolve => file.once('drain', resolve));
     }
   }
