@@ -18,14 +18,14 @@ const models = ExpressCassandra.createClient({
 
 const Stock = models.loadSchema('stock', {
   fields: {
-    ask_price: 'float',
+    ask_price: 'decimal',
     ask_size: 'int',
-    bid_price: 'float',
+    bid_price: 'decimal',
     bid_size: 'int',
-    last_extended_hours_trade_price: 'float',
-    last_trade_price: 'float',
+    last_extended_hours_trade_price: 'decimal',
+    last_trade_price: 'decimal',
     symbol: 'varchar',
-    quantity: 'int',
+    quantity: 'decimal',
   },
   key: ['symbol'],
 });
