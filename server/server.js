@@ -2,9 +2,12 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const express = require('express');
 const fs = require('fs');
+const morgan = require('morgan');
 const controller = require('./controller');
 
 const app = express();
+
+app.use(morgan('dev'));
 
 app.get('*.js', (request, response, next) => {
   if (fs.existsSync(request.url + '.br')) {
@@ -17,10 +20,10 @@ app.get('*.js', (request, response, next) => {
   next();
 });
 
-app.use(express.static(path.join(__dirname, 'dist')));
-
-app.use('/stocks/:ticker', express.static(path.join(__dirname, 'dist')));
+app.use(express.static(path.join(__dirname, '../dist')));
+app.use('/stocks/:ticker', express.static(path.join(__dirname, '../dist')));
 app.use(bodyParser.json());
+
 
 app.get('/api/stocks/:ticker', (req, res) => {
   controller.getStockInfo(req.params.ticker)

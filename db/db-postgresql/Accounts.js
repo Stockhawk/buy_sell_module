@@ -1,7 +1,10 @@
 const Sequelize = require('sequelize');
 const db = require('./index.js');
 
-const Account = db.define('account', {
+const { Model } = Sequelize;
+
+class Account extends Model {}
+Account.init({
   account_number: {
     type: Sequelize.STRING(8),
     primaryKey: true,
@@ -11,6 +14,9 @@ const Account = db.define('account', {
   buying_power: Sequelize.DECIMAL(14, 4),
   option_level: Sequelize.INTEGER,
   watchlist: Sequelize.STRING,
+}, {
+  sequelize: db,
+  modelName: 'account',
 });
 
 module.exports = Account;

@@ -1,7 +1,10 @@
 const Sequelize = require('sequelize');
 const db = require('./index.js');
 
-const Stock = db.define('stock', {
+const { Model } = Sequelize;
+
+class Stock extends Model {}
+Stock.init({
   ask_price: {
     type: Sequelize.DECIMAL(12, 6),
     allowNull: false,
@@ -27,7 +30,7 @@ const Stock = db.define('stock', {
     allowNull: false,
   },
   symbol: {
-    type: Sequelize.STRING(5),
+    type: Sequelize.STRING(),
     primaryKey: true,
     unique: true,
   },
@@ -35,6 +38,11 @@ const Stock = db.define('stock', {
     type: Sequelize.DECIMAL(14, 4),
     allowNull: false,
   },
+}, {
+  sequelize: db,
+  modelName: 'stock',
+  timestamps: false,
 });
+
 
 module.exports = Stock;
