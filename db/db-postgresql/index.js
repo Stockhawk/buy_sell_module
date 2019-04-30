@@ -3,6 +3,7 @@ const Sequelize = require('sequelize');
 const db = new Sequelize('api', 'me', '', {
   host: 'localhost',
   dialect: 'postgres',
+  logging: false,
 });
 
 
