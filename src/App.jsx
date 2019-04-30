@@ -76,6 +76,7 @@ class BuySell extends React.Component {
 
   getStockData() {
     const ticker = window.location.pathname.split('/')[2];
+    console.log(ticker);
     axios.get(`/api/stocks/${ticker}`)
       .then(res => res.data)
       .then((result) => {
