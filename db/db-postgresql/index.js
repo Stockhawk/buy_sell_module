@@ -1,7 +1,12 @@
 const Sequelize = require('sequelize');
 
-const db = new Sequelize('api', 'me', '', {
-  host: 'localhost',
+const pw = process.env.PGPASSFILE || '';
+const host = process.env.PGHOST || 'localhost';
+const dbName = process.env.PGDATABASE || 'api';
+const user = process.env.PGUSER || 'me';
+
+const db = new Sequelize(dbName, user, pw, {
+  host,
   dialect: 'postgres',
   logging: false,
 });
