@@ -61,3 +61,7 @@ typings/
 .next
 
 mockData.csv
+
+dist/bundle.js
+dist/bundle.js.br
+dist/bundle.js.gz

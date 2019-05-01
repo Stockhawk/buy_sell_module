@@ -41,6 +41,6 @@ const createCompressedMockDataCSV = async () => {
         await new Promise(resolve => file.once('drain', resolve));
     }
   }
+}
 
-
-createMockDataCSV();
+createMockDataCSV()

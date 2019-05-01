@@ -29,6 +29,14 @@ app.use(bodyParser.json());
 
 client.on('error', err => console.log(`Error ${err}`));
 
+//without redis
+
+app.get('/api/stocks/:ticker', (req, res) => {
+  const {ticker} = req.params;
+  db.query(`SELECT * FROM stocks WHERE symbol = '${ticker}'`)
+    .then(stockData => res.status(200).send(stockData[0][0]))
+    .catch(error => res.status(404).end(error));
+});
 
 app.get('/api/stocks/:ticker', (req, res) => {
   // controller.getStockInfo(req.params.ticker)
