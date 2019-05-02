@@ -13,10 +13,10 @@ const app = express();
 //const client = redis.createClient();
 
 app.get('*.js', (request, response, next) => {
-  if (fs.existsSync(`${request.url  }.br`)) {
+  if (fs.existsSync(`${request.url}.br`)) {
     request.url += '.br';
     response.set('Content-Encoding', 'br');
-  } else if (fs.existsSync(`${request.url  }.gz`)) {
+  } else if (fs.existsSync(`${request.url}.gz`)) {
     request.url += '.gz';
     response.set('Content-Encoding', 'gzip');
   }
