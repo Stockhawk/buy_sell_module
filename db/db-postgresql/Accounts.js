@@ -17,6 +17,7 @@ Account.init({
 }, {
   sequelize: db,
   modelName: 'account',
+  timestamps: false,
 });
 
 module.exports = Account;
