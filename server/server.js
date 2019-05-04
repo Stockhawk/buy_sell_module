@@ -10,7 +10,7 @@ const Account = require('../db/db-postgresql/Accounts');
 
 
 const app = express();
-//const client = redis.createClient();
+const client = redis.createClient(6379, '54.153.113.146');
 
 app.get('*.js', (request, response, next) => {
   if (fs.existsSync(`${request.url}.br`)) {
@@ -27,35 +27,35 @@ app.use(express.static(path.join(__dirname, '../dist')));
 app.use('/stocks/:ticker', express.static(path.join(__dirname, '../dist')));
 app.use(bodyParser.json());
 
-//client.on('error', err => console.log(`Error ${err}`));
+client.on('error', err => console.log(`Error ${err}`));
 
 //without redis
-app.get('/api/stocks/:ticker', (req, res) => {
-  const { ticker } = req.params;
-  db.query(`SELECT * FROM stocks WHERE symbol = ${ticker}`)
-    .then(stockData => res.status(200).send(stockData[0][0]))
-    .catch(error => res.status(404).end(error));
-});
-
 // app.get('/api/stocks/:ticker', (req, res) => {
-//   // controller.getStockInfo(req.params.ticker)
-//   const tickerRedisKey = req.params.ticker;
-//   client.get(tickerRedisKey, (err, ticker) => {
-//     if (ticker) {
-//       const parsedJSON = JSON.parse(ticker);
-//       res.status(200);
-//       res.send(parsedJSON[0]);
-//     } else {
-//       db.query(`SELECT * FROM stocks WHERE symbol = '${req.params.ticker}'`)
-//         .then((stockData) => {
-//           client.setex(tickerRedisKey, 3600, JSON.stringify(stockData[0]));
-//           res.status(200);
-//           res.send(stockData[0][0]);
-//         })
-//         .catch(error => res.status(404).end(error));
-//     }
-//   });
+//   const { ticker } = req.params;
+//   db.query(`SELECT * FROM stocks WHERE symbol = ${ticker}`)
+//     .then(stockData => res.status(200).send(stockData[0][0]))
+//     .catch(error => res.status(404).end(error));
 // });
+
+app.get('/api/stocks/:ticker', (req, res) => {
+  // controller.getStockInfo(req.params.ticker)
+  const tickerRedisKey = req.params.ticker;
+  client.get(tickerRedisKey, (err, ticker) => {
+    if (ticker) {
+      const parsedJSON = JSON.parse(ticker);
+      res.status(200);
+      res.send(parsedJSON[0]);
+    } else {
+      db.query(`SELECT * FROM stocks WHERE symbol = '${req.params.ticker}'`)
+        .then((stockData) => {
+          client.setex(tickerRedisKey, 3600, JSON.stringify(stockData[0]));
+          res.status(200);
+          res.send(stockData[0][0]);
+        })
+        .catch(error => res.status(404).end(error));
+    }
+  });
+});
 
 app.get('/api/accounts/:account_number', (req, res) => {
   db.query(`SELECT * FROM accounts WHERE account_number = '${req.params.account_number}'`)
